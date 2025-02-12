@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+	"net/url"
 	"os"
 	"time"
 
@@ -16,19 +18,18 @@ func main() {
 	token := os.Getenv("SLACK_AUTH_TOKEN")
 	channelID := os.Getenv("SLACK_CHANNEL_ID")
 
-	// set proxy
-	if err := os.Setenv("HTTP_PROXY", os.Getenv("HTTP_PROXY")); err != nil {
-		fmt.Println(err)
-	}
-
-	if err := os.Setenv("HTTPS_PROXY", os.Getenv("HTTPS_PROXY")); err != nil {
-		fmt.Println(err)
-	}
-
 	titleMessage := os.Args[1]
 	keyMsg := os.Args[2]
 
 	client := slack.New(token, slack.OptionDebug(true))
+
+	// set default client proxy
+	proxyUrl, err := url.Parse(os.Getenv("HTTP_PROXY"))
+	if err != nil {
+		panic(err)
+	}
+	http.DefaultTransport = &http.Transport{Proxy: http.ProxyURL(proxyUrl)}
+
 	attachment := slack.Attachment{
 		Pretext: "Application Notification",
 		Text:    titleMessage,
