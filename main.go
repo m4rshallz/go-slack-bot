@@ -19,14 +19,10 @@ func main() {
 	// set proxy
 	if err := os.Setenv("HTTP_PROXY", os.Getenv("HTTP_PROXY")); err != nil {
 		fmt.Println(err)
-	} else {
-		fmt.Println("SET HTTP_PROXY DONE")
 	}
 
 	if err := os.Setenv("HTTPS_PROXY", os.Getenv("HTTPS_PROXY")); err != nil {
 		fmt.Println(err)
-	} else {
-		fmt.Println("SET HTTPS_PROXY DONE")
 	}
 
 	titleMessage := os.Args[1]
