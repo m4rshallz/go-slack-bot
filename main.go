@@ -16,6 +16,10 @@ func main() {
 	token := os.Getenv("SLACK_AUTH_TOKEN")
 	channelID := os.Getenv("SLACK_CHANNEL_ID")
 
+	// set proxy
+	os.Setenv("HTTP_PROXY", os.Getenv("HTTP_PROXY"))
+	os.Setenv("HTTPS_PROXY", os.Getenv("HTTPS_PROXY"))
+
 	titleMessage := os.Args[1]
 	keyMsg := os.Args[2]
 
