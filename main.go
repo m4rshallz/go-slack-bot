@@ -17,8 +17,17 @@ func main() {
 	channelID := os.Getenv("SLACK_CHANNEL_ID")
 
 	// set proxy
-	os.Setenv("HTTP_PROXY", os.Getenv("HTTP_PROXY"))
-	os.Setenv("HTTPS_PROXY", os.Getenv("HTTPS_PROXY"))
+	if err := os.Setenv("HTTP_PROXY", os.Getenv("HTTP_PROXY")); err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("SET HTTP_PROXY DONE")
+	}
+
+	if err := os.Setenv("HTTPS_PROXY", os.Getenv("HTTPS_PROXY")); err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("SET HTTPS_PROXY DONE")
+	}
 
 	titleMessage := os.Args[1]
 	keyMsg := os.Args[2]
